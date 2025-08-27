@@ -1,2 +1,2 @@
 # Atividade-6---Estiliza-o-em-React-Mini-Loja-
-Sexta entrega do curso Full Stack Jr +praTI
+6 atividade de entrega do curso Full Stack Jr +praTI
