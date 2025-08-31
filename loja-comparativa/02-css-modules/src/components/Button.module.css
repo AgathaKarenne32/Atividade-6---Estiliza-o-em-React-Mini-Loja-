@@ -1,0 +1,4 @@
+.solid{padding:8px 12px;border-radius:12px;background:var(--primary,#2563eb);color:var(--primary-contrast,#fff);border:1px solid transparent}
+.outline{padding:8px 12px;border-radius:12px;background:transparent;color:var(--primary,#2563eb);border:1px solid var(--primary,#2563eb)}
+.ghost{padding:8px 12px;border-radius:12px;background:transparent;border:0}
+:focus-visible{outline:3px solid rgba(37,99,235,0.5);outline-offset:2px}

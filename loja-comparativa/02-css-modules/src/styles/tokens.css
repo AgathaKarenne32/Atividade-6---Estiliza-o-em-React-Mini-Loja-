@@ -1,0 +1,2 @@
+:root{ --radius:12px; --dur:180ms; --space-6:24px; --primary:#2563eb; --primary-contrast:#fff; }
+:root[data-theme="dark"]{ --primary:#60a5fa; }

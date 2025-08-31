@@ -1,0 +1,13 @@
+.container{max-width:1200px;margin:0 auto;padding:24px}
+.grid{display:grid;gap:24px}
+@media (max-width:480px){ .grid{grid-template-columns:1fr} }
+@media (min-width:481px) and (max-width:768px){ .grid{grid-template-columns:repeat(2,1fr)} }
+@media (min-width:769px) and (max-width:1024px){ .grid{grid-template-columns:repeat(3,1fr)} }
+@media (min-width:1025px){ .grid{grid-template-columns:repeat(4,1fr)} }
+
+.card{background:var(--card, #fff);border:1px solid var(--border, #e2e8f0);border-radius:var(--radius);overflow:hidden}
+.media{aspect-ratio:1/1;background:var(--border, #e2e8f0)}
+.body{padding:16px}
+.skeleton{background:linear-gradient(90deg, rgba(0,0,0,0.04) 25%, rgba(0,0,0,0.06) 50%, rgba(0,0,0,0.04) 75%);height:100%}
+.sline{height:18px;border-radius:8px;background:rgba(0,0,0,0.06);margin-bottom:8px}
+.w70{width:70%}.w50{width:50%}
