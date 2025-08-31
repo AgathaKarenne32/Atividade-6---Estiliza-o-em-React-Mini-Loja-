@@ -65,12 +65,6 @@ Cada pasta contém uma aplicação React independente, com sua própria configur
 
 ---
 
-## 📸 Exemplo da aplicação
-
-> Aqui você pode adicionar **prints ou gifs** mostrando cada versão rodando.
-
----
-
 ## 🧑‍💻 Contribuindo
 
 Contribuições são bem-vindas!
