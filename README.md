@@ -1,7 +1,3 @@
-Perfeito 🚀 Vou montar o **README.md** bem estruturado para o GitHub, já em Markdown. Você só precisa colar no seu repositório público.
-
----
-
 # 🛍️ Loja React – 4 versões (CSS Global, CSS Modules, Tailwind, Styled-components)
 
 Este repositório contém a implementação de uma **Loja Online simples** desenvolvida em **React**, recriada em **4 estilos diferentes de estilização**:
