@@ -1,14 +1,24 @@
 import React from 'react'
-export default function Navbar({cartCount}){
-  const [theme,setTheme]=React.useState(()=> localStorage.getItem('theme') || 'light')
-  React.useEffect(()=>{ document.documentElement.classList.toggle('dark', theme==='dark'); localStorage.setItem('theme', theme); },[theme])
+const THEME_KEY = 'theme'
+export default function Navbar({ cartCount }){
+  const [theme, setTheme] = React.useState(()=> document.documentElement.getAttribute('data-theme') || 'light')
+  const toggle = ()=>{
+    const next = theme === 'dark' ? 'light' : 'dark'
+    document.documentElement.setAttribute('data-theme', next)
+    localStorage.setItem(THEME_KEY, next)
+    setTheme(next)
+  }
   return (
-    <nav className="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 shadow-sm">
-      <div className="max-w-[1200px] mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="font-bold">🛍️ Loja</div>
-        <div className="flex items-center gap-3">
-          <button onClick={()=>setTheme(t=>t==='dark'?'light':'dark')} className="border rounded-full px-3 py-1">Theme</button>
-          <button className="px-3 py-1">🛒 <span className="inline-grid place-items-center min-w-[22px] h-[22px] px-[6px] rounded-full bg-blue-600 text-white text-[12px] font-bold">{cartCount}</span></button>
+    <nav className="nav" role="navigation" aria-label="Principal">
+      <div className="nav-inner container">
+        <div className="logo" aria-label="Loja React">🛍️ Loja</div>
+        <div className="actions">
+          <button className="theme-toggle" onClick={toggle} aria-pressed={theme==='dark'} aria-label="Alternar tema">
+            {theme==='dark' ? '🌙' : '☀️'}
+          </button>
+          <button className="btn btn-ghost" aria-label={`Carrinho com ${cartCount} itens`}>
+            🛒 <span className="cart-badge" aria-hidden>{cartCount}</span>
+          </button>
         </div>
       </div>
     </nav>

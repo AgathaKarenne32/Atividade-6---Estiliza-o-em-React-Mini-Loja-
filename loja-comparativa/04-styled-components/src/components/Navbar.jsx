@@ -1,18 +1,27 @@
 import React from 'react'
-import styled from 'styled-components'
-const Nav = styled.nav`position:sticky;top:0;z-index:50;background:${p=>p.theme.card};border-bottom:1px solid ${p=>p.theme.border};box-shadow:${p=>p.theme.shadowSm}`
-const Inner = styled.div`max-width:1200px;margin:0 auto;padding:16px;display:flex;justify-content:space-between;align-items:center`
-const Badge = styled.span`display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:${p=>p.theme.primary};color:${p=>p.theme.primaryContrast}`
-export default function Navbar({cartCount, themeKey, setThemeKey}){
+const THEME_KEY = 'theme'
+export default function Navbar({ cartCount }){
+  const [theme, setTheme] = React.useState(()=> document.documentElement.getAttribute('data-theme') || 'light')
+  const toggle = ()=>{
+    const next = theme === 'dark' ? 'light' : 'dark'
+    document.documentElement.setAttribute('data-theme', next)
+    localStorage.setItem(THEME_KEY, next)
+    setTheme(next)
+  }
   return (
-    <Nav role="navigation">
-      <Inner>
-        <div style={{fontWeight:700}}>🛍️ Loja</div>
-        <div style={{display:'flex',gap:12,alignItems:'center'}}>
-          <button onClick={()=>setThemeKey(t=>t==='dark'?'light':'dark')}>Theme</button>
-          <button>🛒 <Badge aria-hidden>{cartCount}</Badge></button>
+    <nav className="nav" role="navigation" aria-label="Principal">
+      <div className="nav-inner container">
+        <div className="logo" aria-label="Loja React">🛍️ Loja</div>
+        <div className="actions">
+          <button className="theme-toggle" onClick={toggle} aria-pressed={theme==='dark'} aria-label="Alternar tema">
+            {theme==='dark' ? '🌙' : '☀️'}
+          </button>
+          <button className="btn btn-ghost" aria-label={`Carrinho com ${cartCount} itens`}>
+            🛒 <span className="cart-badge" aria-hidden>{cartCount}</span>
+          </button>
         </div>
-      </Inner>
-    </Nav>
+      </div>
+    </nav>
   )
 }
+
