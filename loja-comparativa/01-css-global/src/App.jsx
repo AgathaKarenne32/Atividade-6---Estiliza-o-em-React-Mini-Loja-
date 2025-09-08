@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from './components/Navbar'
-import ProductCard from './components/ProductCard'
+import ProductCard from './components/ProductCardSkeleton'
 import { products } from './data/products'
 
 export default function App(){
