@@ -1,37 +1,61 @@
-import React from 'react'
-import Navbar from './components/Navbar'
-import ProductCard from './components/ProductCardSkeleton'
-import { products } from './data/products'
+import React, { useState, useEffect } from 'react';
+import Navbar from './components/Navbar';
+import ProductCard from './components/ProductCard';
+import ProductCardSkeleton from './components/ProductCardSkeleton';
+import { products } from './data/products';
 
-export default function App(){
-  const [cart, setCart] = React.useState([])
-  const [loading, setLoading] = React.useState(true)
-  React.useEffect(()=>{ const t = setTimeout(()=>setLoading(false), 900); return ()=>clearTimeout(t); },[])
-  const add = (id) => setCart(c => [...c, id])
+// Função auxiliar para determinar o tema inicial
+const getInitialTheme = () => {
+  // 1. Verifica se há um tema salvo no localStorage
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    return savedTheme;
+  }
+  // 2. Se não, verifica a preferência do sistema do usuário
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
+export default function App() {
+  const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(true);
+  // Gerenciando o estado do tema
+  const [theme, setTheme] = useState(getInitialTheme);
+
+  // Função para trocar o tema
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
+  useEffect(() => {
+    const t = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Efeito para aplicar o tema no HTML e salvar no localStorage
+  useEffect(() => {
+    // Aplica o atributo `data-theme` na tag <html>
+    document.documentElement.setAttribute('data-theme', theme);
+    // Salva a escolha do usuário no localStorage
+    localStorage.setItem('theme', theme);
+  }, [theme]); // Roda sempre que o estado 'theme' mudar
+
+  const add = (id) => setCart(c => [...c, id]);
 
   return (
     <>
-      <Navbar cartCount={cart.length} />
+      {/* Passando o tema atual e a função de troca para o Navbar */}
+      <Navbar 
+        cartCount={cart.length} 
+        theme={theme} 
+        onToggleTheme={toggleTheme} 
+      />
       <main className="container">
         <section className="grid" aria-live="polite">
-          {loading 
-            ? Array.from({length:6}).map((_,i)=>(
-                <article className="card" key={i} aria-hidden>
-                  <div className="card-media skeleton" />
-                  <div className="card-body">
-                    <div className="s-line s-line-70" />
-                    <div className="s-line s-line-50" />
-                    <div style={{display:'flex',gap:8}}>
-                      <div className="s-box" />
-                      <div className="s-box" />
-                    </div>
-                  </div>
-                </article>
-              ))
-            : products.map(p => <ProductCard key={p.id} p={p} onAdd={add} />)
-          }
+          {loading
+            ? Array.from({ length: 6 }).map((_, i) => <ProductCardSkeleton key={i} />)
+            : products.map(p => <ProductCard key={p.id} p={p} onAdd={add} />)}
         </section>
       </main>
     </>
-  )
+  );
 }
